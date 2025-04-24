@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
-import Star from "../../Star/Star";
+import  { useEffect, useState } from "react";
 import StarRating from "../../StarRating/StarRating";
 import Loader from "../Loader";
-const key = `a696664f`;
+import PropTypes from 'prop-types';
 
-export default function MovieDetails({ selectedMovieId, handleClose , onWatched, watched }) {
+MovieDetails.propTypes = {
+  selectedMovieId: PropTypes.string,
+  handleClose: PropTypes.func,
+  onWatched: PropTypes.func,
+  watched: PropTypes.array,
+  keyId: PropTypes.string
+};
+
+
+export default function MovieDetails({ selectedMovieId, handleClose , onWatched, watched , keyId }) {
   const [Movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState('');
 
   const isWatched=  watched.find((movieWatched)=>movieWatched.imdbId === selectedMovieId)
-
 
   const {
     Title: title,
@@ -45,7 +52,7 @@ export default function MovieDetails({ selectedMovieId, handleClose , onWatched,
     async function getMovieDetails() {
       setIsLoading(true);
       const resp = await fetch(
-        `http://www.omdbapi.com/?apikey=${key}&i=${selectedMovieId}`
+        `http://www.omdbapi.com/?apikey=${keyId}&i=${selectedMovieId}`
       );
       const data = await resp.json();
       setMovie(data);
@@ -54,14 +61,13 @@ export default function MovieDetails({ selectedMovieId, handleClose , onWatched,
     }
 
     getMovieDetails();
-  }, [selectedMovieId]);
+  }, [selectedMovieId, keyId]);
 
 useEffect(()=>{
   if(!title)return
 document.title= ` Movie | ${title}`
 return function(){
   document.title = 'usePopcorn'
-  console.log(title)
 }
 }, [title])
 
@@ -122,7 +128,8 @@ return function(){
       </section>
   </>
 }
-
     </div>
   );
 }
+
+

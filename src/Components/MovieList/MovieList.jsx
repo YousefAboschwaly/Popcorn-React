@@ -1,5 +1,10 @@
-import React, { useState } from "react";
 import Movie from "../Movie/Movie";
+import PropTypes from 'prop-types';
+
+MovieList.propTypes = {
+  movies: PropTypes.array,
+  handleSelection: PropTypes.func
+};
 
 export default function MovieList({ movies , handleSelection }) {
   return (
@@ -9,6 +14,8 @@ export default function MovieList({ movies , handleSelection }) {
           <Movie key={movie.imdbID} movie={movie} handleSelection={handleSelection}  />
         ))}
       </ul>
-    </>
+      </>
   );
 }
+
+

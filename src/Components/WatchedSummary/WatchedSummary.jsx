@@ -1,5 +1,14 @@
-import React from "react";
 
+import PropTypes from 'prop-types';
+WatchedSummary.propTypes = {
+  watched: PropTypes.arrayOf(
+    PropTypes.shape({
+      imdbRating: PropTypes.number.isRequired,
+      userRating: PropTypes.number.isRequired,
+      runtime: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+};
 export default function WatchedSummary({ watched }) {
   const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -26,7 +35,7 @@ export default function WatchedSummary({ watched }) {
           </p>
           <p>
             <span>⏳</span>
-            <span>{avgRuntime.toFixed(2)} min</span>
+            <span>{avgRuntime.toString().length>3? avgRuntime.toFixed(2):avgRuntime} min</span>
           </p>
         </div>
       </div>

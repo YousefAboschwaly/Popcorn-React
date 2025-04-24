@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --color-primary: #6741d9;
   --color-primary-light: #7950f2;
@@ -36,21 +40,17 @@ body {
   justify-content: space-evenly;
   align-items: center;
   height: 7.2rem;
-  padding: 0 3.2rem;
   background-color: var(--color-primary);
   border-radius: 0.9rem;
 }
 
 .main {
   margin-top: 2.4rem;
-  height: calc(100vh - 7.2rem - 3 * 2.4rem);
-  display: flex;
-  gap: 2.4rem;
-  justify-content: center;
+
 }
 
 .box {
-  width: 40%;
+  
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
   overflow-y: auto;
@@ -80,12 +80,10 @@ body {
   gap: 0.8rem;
 }
 
-.logo span {
-  font-size: 3.2rem;
-}
+
 
 .logo h1 {
-  font-size: 2.4rem;
+ 
   font-weight: 600;
   color: #fff;
 }
@@ -116,7 +114,6 @@ body {
 
 .num-results {
   justify-self: end;
-  font-size: 1.8rem;
 }
 
 .btn-toggle {
@@ -177,10 +174,10 @@ body {
   font-size: 1.8rem;
 }
 
-.list div {
+.list .movie-year {
   display: flex;
   align-items: center;
-  gap: 2.4rem;
+  gap: 2.6rem;
 }
 
 .list p {
@@ -250,7 +247,7 @@ body {
 }
 
 .details section {
-  padding: 4rem;
+  padding: 2rem 4rem;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
