@@ -1,7 +1,8 @@
 import  { useEffect, useState } from "react";
-import StarRating from "../../StarRating/StarRating";
-import Loader from "../Loader";
 import PropTypes from 'prop-types';
+import Loader from "../loader/Loader";
+import StarRating from './../StarRating/StarRating';
+import useKey from "../../Hooks/useKey";
 
 MovieDetails.propTypes = {
   selectedMovieId: PropTypes.string,
@@ -71,23 +72,11 @@ return function(){
 }
 }, [title])
 
-useEffect(function(){
-  function callBack(e){
-    if(e.key === 'Escape'){
-      handleClose()
-      console.log('CLOSING')
-    }
-  }
-document.addEventListener('keydown',callBack)
-return function(){
-  document.removeEventListener('keydown',callBack)
-}
-},[handleClose])
-
+useKey('Escape',handleClose)
 
 
   return (
-    <div className="details" key={selectedMovieId}>
+    <div className="details  " key={selectedMovieId}>
 {isLoading ?<Loader/> :
 
   <>
@@ -109,7 +98,7 @@ return function(){
           </p>
         </div>
       </header>
-      <section>
+      <section className="">
       <div className="rating">
        {isWatched ? <p>Movie was rated with {isWatched?.userRating}⭐ </p> :  
           <>

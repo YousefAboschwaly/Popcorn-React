@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
@@ -8,18 +8,24 @@ import MovieList from "./Components/MovieList/MovieList";
 import WatchedSummary from "./Components/WatchedSummary/WatchedSummary";
 import WatchedMovieList from "./Components/WatchedMovieList/WatchedMovieList";
 import Loader from "./Components/loader/Loader";
-import MovieDetails from "./Components/loader/MovieDetails/MovieDetails";
+import MovieDetails from "./Components/MovieDetails/MovieDetails";
+import { useMovies } from "./Hooks/useMovies";
+import useLocalStorage from "./Hooks/useLocalStorage";
 const key = `4b0c5b54`;
 // const query = `interstellar`;
 function App() {
 
-  const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
+
   const [query, setQuery] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null)
 
+  const {movies,isLoading,error} = useMovies(query)
+  const [watched, setWatched] = useLocalStorage([],"watched")
+  
+  // const [watched, setWatched] = useState(function(){
+  //   const storedWatched = localStorage.getItem('watched')
+  //   return storedWatched ? JSON.parse(storedWatched) : []
+  // });
 
   // functions that handle MoviesDetails when i clicked on the Movies that in left
 
@@ -46,44 +52,6 @@ function handleWatchedMovies(newMovie){
 
 
 
-// fetching Data
-  useEffect(() => {
-// we use controller to remove the previous Request when we enter in a new Request
-      const controller = new AbortController()
-   async function fetchMovies(){
-    try{
-      setIsLoading(true)
-      setError('')
-      const resp = await fetch(`http://www.omdbapi.com/?apikey=${key}&s=${query}`,{signal:controller.signal});
-      if(!resp.ok) throw new Error('Some thing went wrong when fetching Movies')
-      const data = await resp.json()
-    if(data.Response ==="False") throw new Error('⛔ Movies not found')
-      setMovies(data.Search)
-    setError('')
-    }catch(err){
-        setError(err.message)
-    }
-    finally{
-      setIsLoading(false)
-    }
-    
-
-
-    }
-
-    if(query.length < 3){
-      setError('')
-      setMovies([])
-        return;
-      
-    }
-    handleClose()
-    fetchMovies()
-    return function(){
-      controller.abort()
-    }
-   
-  }, [query]);
 
 
   return (
