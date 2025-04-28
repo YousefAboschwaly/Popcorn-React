@@ -84,11 +84,7 @@ usePopcorn is a React-based movie rating application designed for movie enthusia
 - **Dark Mode**: Introduce light and dark themes to enhance user experience.
 - **Language Support**: Add localization to support a global audience.
 
----
 
-## 🖥️ Demo
-
-Check out the live demo [here](https://fresh-cart-ecommerce-five.vercel.app/).
 
 
 
